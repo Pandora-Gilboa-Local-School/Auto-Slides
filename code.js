@@ -36,7 +36,7 @@ function onOpen() {
 
   SlidesApp.getUi().createMenu('🔄 AutoSlides')
     .addItem('⚙️ Configure', 'configure')
-    .addItem('🌐  Get Public URL', 'publicar')
+    .addItem('🌐  Get Public URL', 'publish')
     .addItem('🔻 Stop Publishing', 'despublicar')
     .addSeparator()
     .addItem('💡 About AutoSlides', 'acercaDe')
@@ -97,7 +97,7 @@ function configure() {
     
     // Inicialmente la publicación está desactivada
     
-    PropertiesService.getDocumentProperties().setProperty('publicar', 'false');
+    PropertiesService.getDocumentProperties().setProperty('publish', 'false');
     
   }
   
@@ -209,7 +209,7 @@ function acortarUrl() {
   
 }
     
-function publicar() {
+function publish() {
      
   var slideId = SlidesApp.getActivePresentation().getId();
   var ultimaRevId = obtenerRevisiones();
@@ -223,7 +223,7 @@ function publicar() {
                            publishAuto: true}, 
                           slideId, ultimaRevId);
             
-    PropertiesService.getDocumentProperties().setProperty('publicar', 'true');
+    PropertiesService.getDocumentProperties().setProperty('publish', 'true');
     
     // Si no se ha configurado previamente, establecer valores por defecto
     
@@ -273,7 +273,7 @@ function despublicar() {
                          publishAuto: false}, 
                          slideId, ultimaRevId);
   
-    PropertiesService.getDocumentProperties().setProperty('publicar', 'false');
+    PropertiesService.getDocumentProperties().setProperty('publish', 'false');
     SlidesApp.getUi().alert('🔄 AutoSlides', '🔻 The presentation is no longer publicly available.', SlidesApp.getUi().ButtonSet.OK);
   
   } catch(e) {

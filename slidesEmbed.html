@@ -9,7 +9,7 @@
   
   <!-- Mostrar presentación incrustada si publicación activada y ajustes initializeds -->
   
-  <? if (PropertiesService.getDocumentProperties().getProperty('publicar') == 'true' && 
+  <? if (PropertiesService.getDocumentProperties().getProperty('publish') == 'true' && 
          PropertiesService.getDocumentProperties().getProperty('initialized') == 'true' ) { ?>
   
     <div id="marco1" style="display: block; position: relative; padding-bottom: <?= aspecto ?>%; height: 0; overflow: hidden; border: none;">
