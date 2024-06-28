@@ -30,12 +30,12 @@ var SETTINGS = {
   var BORDER_INSET = 2; // Additional offset to remove all borders using clip-path / inset (CSS)
   var TINYURL = 'https://tinyurl.com/api-create.php?url='; // URL for shortening using TinyURL service
 
-// Vamos a por faena...
+// Let's get to work...
 
 function onOpen() {
 
   SlidesApp.getUi().createMenu('🔄 AutoSlides')
-    .addItem('⚙️ Configure', 'configurar')
+    .addItem('⚙️ Configure', 'configure')
     .addItem('🌐  Get Public URL', 'publicar')
     .addItem('🔻 Stop Publishing', 'despublicar')
     .addSeparator()
@@ -85,7 +85,7 @@ function contarGraficosHdc() {
 
 }
 
-function configurar() {
+function configure() {
 
   // Inicializar y / o leer configuración
   
