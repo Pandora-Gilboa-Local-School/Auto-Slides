@@ -55,15 +55,15 @@
     google.script.run
       .withSuccessHandler(function(ajustes) {
         M.toast({html: '✔️ Original settings restored'});
-        $('#sAvanzar').prop('value', ajustes.sAvanzar);
-        $('#sRecargar').prop('value', ajustes.sRecargar);
-        $('#msFundido').prop('value', ajustes.msFundido);
-        $('#colorFondo').prop('value', ajustes.colorFondo);
-        $('#iniciar').prop('checked', ajustes.iniciar == 'on' ? true : false);
-        $('#repetir').prop('checked', ajustes.repetir == 'on' ? true : false);
-        $('#eliminarMenu').prop('checked', ajustes.eliminarMenu == 'on' ? true : false);
-        $('#eliminarBandas').prop('checked', ajustes.eliminarBandas == 'on' ? true : false);
-        $('#eliminarBordes').prop('checked', ajustes.eliminarBordes == 'on' ? true : false);
+        $('#sAdvance').prop('value', ajustes.sAdvance);
+        $('#sReload').prop('value', ajustes.sReload);
+        $('#msFade').prop('value', ajustes.msFade);
+        $('#backgroundColor').prop('value', ajustes.backgroundColor);
+        $('#start').prop('checked', ajustes.start == 'on' ? true : false);
+        $('#repeat').prop('checked', ajustes.repeat == 'on' ? true : false);
+        $('#hideMenu').prop('checked', ajustes.hideMenu == 'on' ? true : false);
+        $('#hideBands').prop('checked', ajustes.hideBands == 'on' ? true : false);
+        $('#hideBorders').prop('checked', ajustes.hideBorders == 'on' ? true : false);
         $('#botonGuardar').prop('disabled', true);
         $('#botonReset').prop('disabled', false);
 
