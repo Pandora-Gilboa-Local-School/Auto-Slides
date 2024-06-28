@@ -16,32 +16,32 @@
     
       <!-- Ajustes del script -->
 
-      <form class="col s12" id="formconfigure">       
+      <form class="col s12" id="formConfigurar">       
         <div class="row">
         <div class="input-field col s12">
-          <label for="sAdvance">Automatic advance every (s)</label>
-          <input class="validate" type="number" name="sAdvance" value="<?= sAdvance ?>" min="1" step="1" id="sAdvance">
+          <label for="sAvanzar">Automatic advance every (s)</label>
+          <input class="validate" type="number" name="sAvanzar" value="<?= sAvanzar ?>" min="1" step="1" id="sAvanzar">
         </div>
         </div>
         
         <div class="row">
         <div class="input-field col s12">
-          <label for="sReload">Reload presentation every(s) [0 = never]</label>
-          <input class="validate" type="number" name="sReload" value="<?= sReload ?>" min="0" step="1" id="sReload">
+          <label for="sRecargar">Reload presentation every(s) [0 = never]</label>
+          <input class="validate" type="number" name="sRecargar" value="<?= sRecargar ?>" min="0" step="1" id="sRecargar">
         </div>
         </div> 
         
         <div class="row">
         <div class="input-field col s12">
-          <label for="msFade">fade (ms)</label>
-          <input class="validate" type="number" name="msFade" value="<?= msFade ?>" min="1000" step="100" id="msFade">
+          <label for="msFundido">fade (ms)</label>
+          <input class="validate" type="number" name="msFundido" value="<?= msFundido ?>" min="1000" step="100" id="msFundido">
         </div>
         </div>
         
         <div class="row">
         <div class="input-field col s12">
           <label>
-            <input name="start" type="checkbox" class="filled-in" <?= start ?> id="start"/>
+            <input name="iniciar" type="checkbox" class="filled-in" <?= iniciar ?> id="iniciar"/>
             <span>Start automatically</span>
           </label>
         </div>
@@ -50,7 +50,7 @@
         <div class="row">
         <div class="input-field col s12">
           <label>
-            <input name="repeat" type="checkbox" class="filled-in" <?= repeat ?>  id="repeat"/>
+            <input name="repetir" type="checkbox" class="filled-in" <?= repetir ?>  id="repetir"/>
             <span>Repeat</span>
           </label>
         </div>
@@ -59,7 +59,7 @@
         <div class="row">
         <div class="input-field col s12">
           <label>
-            <input name="hideMenu" type="checkbox" class="filled-in" <?= hideMenu ?>  id ="hideMenu"/>
+            <input name="eliminarMenu" type="checkbox" class="filled-in" <?= eliminarMenu ?>  id ="eliminarMenu"/>
             <span>Hide Embedded Menu</span>
           </label>
         </div>
@@ -68,7 +68,7 @@
         <div class="row">
         <div class="input-field col s12">
           <label>
-            <input name="hideBands" type="checkbox" class="filled-in" <?= hideBands ?>  id ="hideBands"/>
+            <input name="eliminarBandas" type="checkbox" class="filled-in" <?= eliminarBandas ?>  id ="eliminarBandas"/>
             <span>Hide Side Bars</span>
           </label>
         </div>
@@ -77,7 +77,7 @@
        <div class="row">
         <div class="input-field col s12">
           <label>
-            <input name="hideBorders" type="checkbox" class="filled-in" <?= hideBorders ?>  id ="hideBorders"/>
+            <input name="eliminarBordes" type="checkbox" class="filled-in" <?= eliminarBordes ?>  id ="eliminarBordes"/>
             <span>Hide Frame Borders</span>
           </label>
         </div>
@@ -85,8 +85,8 @@
         
        <div class="row">
          <div class="input-field col s12">
-           <label for="backgroundColor">
-             <input type="color" name="backgroundColor" value="<?= backgroundColor ?>" id="backgroundColor">
+           <label for="colorFondo">
+             <input type="color" name="colorFondo" value="<?= colorFondo ?>" id="colorFondo">
              <span>Background Color</span>
            </label>
          </div>

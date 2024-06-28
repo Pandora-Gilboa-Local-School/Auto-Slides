@@ -5,23 +5,23 @@
     <base target="_top">
   </head>
   
-  <body style="background-color:<?= backgroundColor ?>; margin: 0; padding: 0">
+  <body style="background-color:<?= colorFondo ?>; margin: 0; padding: 0">
   
-  <!-- Mostrar presentación incrustada si publicación activada y ajustes initializeds -->
+  <!-- Mostrar presentación incrustada si publicación activada y ajustes inicializados -->
   
-  <? if (PropertiesService.getDocumentProperties().getProperty('publish') == 'true' && 
-         PropertiesService.getDocumentProperties().getProperty('initialized') == 'true' ) { ?>
+  <? if (PropertiesService.getDocumentProperties().getProperty('publicar') == 'true' && 
+         PropertiesService.getDocumentProperties().getProperty('inicializado') == 'true' ) { ?>
   
     <div id="marco1" style="display: block; position: relative; padding-bottom: <?= aspecto ?>%; height: 0; overflow: hidden; border: none;">
       <iframe id="marco2" style="transition: opacity 1s; position:absolute; width: 100%; height: 100%; clip-path: inset(<?= insetSuperior ?>px <?= insetLateral ?>px <?= insetInferior ?>px <?= insetLateral ?>px)";
-        src="<?= url ?>?start=<?= start ?>&loop=<?= repeat ?>&delayms=<?= msAdvance ?>"
+        src="<?= url ?>?start=<?= iniciar ?>&loop=<?= repetir ?>&delayms=<?= msAvanzar ?>"
         frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
       </iframe>
     </div>
   
     <!-- Si intervalo de recarga = 0 no recargaremos nunca -->
   
-    <? if (PropertiesService.getDocumentProperties().getProperty('sReload') != '0') { ?>
+    <? if (PropertiesService.getDocumentProperties().getProperty('sRecargar') != '0') { ?>
 
       <script>
   
@@ -29,10 +29,10 @@
       
           document.getElementById("marco2").style.opacity = 0;
       
-          sleep(1000).then(() => {document.getElementById('marco2').src="<?= url ?>?start=<?= start ?>&loop=<?= repeat ?>&delayms=<?= msAdvance ?>";});
-          sleep(<?= msFade ?>).then(() => {document.getElementById("marco2").style.opacity = 1;});
+          sleep(1000).then(() => {document.getElementById('marco2').src="<?= url ?>?start=<?= iniciar ?>&loop=<?= repetir ?>&delayms=<?= msAvanzar ?>";});
+          sleep(<?= msFundido ?>).then(() => {document.getElementById("marco2").style.opacity = 1;});
            
-        }, <?= msReload ?>);
+        }, <?= msRecargar ?>);
     
         function sleep(ms) {
           return new Promise(resolve => setTimeout(resolve, ms));
