@@ -25,10 +25,10 @@ var SETTINGS = {
   'hideBands' : 'on',
   'hideBorders' : 'off'};
 
-var INSET_INFERIOR = 28; // Altura en px barra con botones inferior en presentación incrustada
-var NUMERO_MAGICO = 14.25; // x ancho/alto para obtener el valor en px del recorte lateral que elimina bandas negras
-var INSET_BORDES = 2;      // Desplazamiento adicional para eliminar todos los bordes mediante clip-path / inset (CSS) 
-var TINYURL = 'https://tinyurl.com/api-create.php?url='; // URL para acortar usando servicio de TinyURL  
+  var BOTTOM_INSET = 28; // Height in pixels of the bottom bar with buttons in embedded presentation
+  var MAGIC_NUMBER = 14.25; // Width/height ratio to obtain the pixel value of the lateral crop that removes black bands
+  var BORDER_INSET = 2; // Additional offset to remove all borders using clip-path / inset (CSS)
+  var TINYURL = 'https://tinyurl.com/api-create.php?url='; // URL for shortening using TinyURL service
 
 // Vamos a por faena...
 
@@ -294,7 +294,7 @@ function doGet(e) {
   
   var ajustes = PropertiesService.getDocumentProperties().getProperties();
   var aspecto = 100 * SlidesApp.getActivePresentation().getPageHeight() / SlidesApp.getActivePresentation().getPageWidth();
-  var offsetPx = ajustes.hideBorders == 'on' ? INSET_BORDES : 0;
+  var offsetPx = ajustes.hideBorders == 'on' ? BORDER_INSET  : 0;
   
   incrustaWeb.url =  'https://docs.google.com/presentation/d/' + SlidesApp.getActivePresentation().getId() + '/embed';
   incrustaWeb.start = ajustes.start == 'on' ? 'true' : 'false';
@@ -303,8 +303,8 @@ function doGet(e) {
   incrustaWeb.msFade = ajustes.msFade;
   incrustaWeb.msReload = (+ajustes.sReload * 1000).toString();
   incrustaWeb.backgroundColor = ajustes.backgroundColor;
-  incrustaWeb.insetInferior = ajustes.hideMenu == 'on' ? Math.ceil(INSET_INFERIOR  + offsetPx).toString() : '0';
-  incrustaWeb.insetLateral = ajustes.hideBands == 'on' ? Math.ceil(100 * NUMERO_MAGICO / aspecto + offsetPx).toString() : '0';
+  incrustaWeb.insetInferior = ajustes.hideMenu == 'on' ? Math.ceil(BOTTOM_INSET  + offsetPx).toString() : '0';
+  incrustaWeb.insetLateral = ajustes.hideBands == 'on' ? Math.ceil(100 * MAGIC_NUMBER / aspecto + offsetPx).toString() : '0';
   incrustaWeb.insetSuperior = offsetPx.toString();
 
   // Para "truco" CSS que hace el iframe responsive
