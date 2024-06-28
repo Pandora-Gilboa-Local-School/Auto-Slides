@@ -44,15 +44,15 @@ function onOpen() {
     
 }
 
-// Info del script
+// Script Info
 
 function about() {
-
-  // Presentación del complemento
+  // Plugin presentation
   var panel = HtmlService.createTemplateFromFile('about');
   panel.version = VERSION;
   SlidesApp.getUi().showModalDialog(panel.evaluate().setWidth(420).setHeight(375), '💡 What is autoslides?');
 }
+
 
 // Refrescar gráficos vinculados de HdC
 
