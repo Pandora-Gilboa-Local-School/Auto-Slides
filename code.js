@@ -39,17 +39,17 @@ function onOpen() {
     .addItem('🌐  Get Public URL', 'publish')
     .addItem('🔻 Stop Publishing', 'unpublish')
     .addSeparator()
-    .addItem('💡 About AutoSlides', 'acercaDe')
+    .addItem('💡 About AutoSlides', 'about')
     .addToUi();
     
 }
 
 // Info del script
 
-function acercaDe() {
+function about() {
 
   // Presentación del complemento
-  var panel = HtmlService.createTemplateFromFile('acercaDe');
+  var panel = HtmlService.createTemplateFromFile('about');
   panel.version = VERSION;
   SlidesApp.getUi().showModalDialog(panel.evaluate().setWidth(420).setHeight(375), '💡 What is autoslides?');
 }
