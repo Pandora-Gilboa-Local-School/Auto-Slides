@@ -1,55 +1,55 @@
 /**
  * AutoSlides
- * Una plantilla de presentación de Google que permite generar un pase de 
- * diapositivas auto hospedado mediante una webapp que se actualiza automáticamente
- * a intervalos prefijados sin necesidad de recargar de manera manual en el navegador.
+ * A Google Slides template that enables the creation of a self-hosted slideshow
+ * through a web app that updates automatically at preset intervals without the need
+ * for manual browser refresh.
  *
- * Copyright (C) Pablo Felip (@pfelipm) · Se distribuye bajo licencia GNU GPL v3.
+ * Copyright (C)
  *
- * @OnlyCurrentDoc
+ * @OnlyCurrentDoc // DO NOT REMOVE!!!!!!! - G.H
  */
 
-// Constantes generales del script
+// General constants for the script
 
-var VERSION = 'Versión: 1.1 (febrero 2020)';
+var VERSION = 'version: 1.1 (EN)';
 
-var AJUSTES_P = {
-  'inicializado' : 'true',
-  'sAvanzar' : '3',
-  'sRecargar' : '60',
-  'msFundido' : '1500',
-  'colorFondo' : '#ffffff',
-  'iniciar' : 'on',
-  'repetir' : 'on',
-  'eliminarMenu' : 'on',
-  'eliminarBandas' : 'on',
-  'eliminarBordes' : 'off'};
+var SETTINGS = {
+  'initialized' : 'true',
+  'sAdvance' : '3',
+  'sReload' : '60',
+  'msFade' : '1500',
+  'backgroundColor' : '#ffffff',
+  'start' : 'on',
+  'repeat' : 'on',
+  'hideMenu' : 'on',
+  'hideBands' : 'on',
+  'hideBorders' : 'off'};
 
-var INSET_INFERIOR = 28; // Altura en px barra con botones inferior en presentación incrustada
-var NUMERO_MAGICO = 14.25; // x ancho/alto para obtener el valor en px del recorte lateral que elimina bandas negras
-var INSET_BORDES = 2;      // Desplazamiento adicional para eliminar todos los bordes mediante clip-path / inset (CSS) 
-var TINYURL = 'https://tinyurl.com/api-create.php?url='; // URL para acortar usando servicio de TinyURL  
+var BOTTOM_INSET = 28; // Height in pixels of the bottom bar with buttons in the embedded presentation
+var MAGIC_NUMBER = 14.25; // Width/height ratio to obtain the pixel value of the lateral crop that removes black bands
+var BORDER_INSET  = 2;      // Additional offset to remove all borders using clip-path / inset (CSS)
+var TINYURL = 'https://tinyurl.com/api-create.php?url=';  // URL for shortening using the TinyURL service
 
-// Vamos a por faena...
+// Let's get to work...
 
 function onOpen() {
 
   SlidesApp.getUi().createMenu('🔄 AutoSlides')
-    .addItem('⚙️ Configure', 'configurar')
-    .addItem('🌐  Get Public URL', 'publicar')
-    .addItem('🔻 Stop Publishing', 'despublicar')
+    .addItem('⚙️ Configure', 'configure')
+    .addItem('🌐  Get Public URL', 'publish')
+    .addItem('🔻 Stop Publishing', 'unpublish')
     .addSeparator()
-    .addItem('💡 About AutoSlides', 'acercaDe')
+    .addItem('💡 About AutoSlides', 'about')
     .addToUi();
     
 }
 
 // Info del script
 
-function acercaDe() {
+function about() {
 
   // Presentación del complemento
-  var panel = HtmlService.createTemplateFromFile('acercaDe');
+  var panel = HtmlService.createTemplateFromFile('about');
   panel.version = VERSION;
   SlidesApp.getUi().showModalDialog(panel.evaluate().setWidth(420).setHeight(375), '💡 What is autoslides?');
 }
@@ -85,19 +85,19 @@ function contarGraficosHdc() {
 
 }
 
-function configurar() {
+function configure() {
 
   // Inicializar y / o leer configuración
   
-  if (PropertiesService.getDocumentProperties().getProperty('inicializado') != 'true') {
+  if (PropertiesService.getDocumentProperties().getProperty('initialized') != 'true') {
     
     // Establecer ajustes por defecto
     
-    PropertiesService.getDocumentProperties().setProperties(AJUSTES_P, true);
+    PropertiesService.getDocumentProperties().setProperties(SETTINGS, true);
     
     // Inicialmente la publicación está desactivada
     
-    PropertiesService.getDocumentProperties().setProperty('publicar', 'false');
+    PropertiesService.getDocumentProperties().setProperty('publish', 'false');
     
   }
   
@@ -109,15 +109,15 @@ function configurar() {
   
   var ajustes = PropertiesService.getDocumentProperties();
   
-  panel.sAvanzar =  ajustes.getProperty('sAvanzar');
-  panel.sRecargar = ajustes.getProperty('sRecargar');
-  panel.msFundido = ajustes.getProperty('msFundido');
-  panel.colorFondo = ajustes.getProperty('colorFondo');
-  panel.iniciar =  ajustes.getProperty('iniciar') == 'on' ? 'checked' : '' ;
-  panel.repetir =  ajustes.getProperty('repetir') == 'on' ? 'checked' : '' ;
-  panel.eliminarMenu = ajustes.getProperty('eliminarMenu')  == 'on' ? 'checked' : '';
-  panel.eliminarBandas = ajustes.getProperty('eliminarBandas')  == 'on' ? 'checked' : '';
-  panel.eliminarBordes = ajustes.getProperty('eliminarBordes')  == 'on' ? 'checked' : '';
+  panel.sAdvance =  ajustes.getProperty('sAdvance');
+  panel.sReload = ajustes.getProperty('sReload');
+  panel.msFade = ajustes.getProperty('msFade');
+  panel.backgroundColor = ajustes.getProperty('backgroundColor');
+  panel.start =  ajustes.getProperty('start') == 'on' ? 'checked' : '' ;
+  panel.repeat =  ajustes.getProperty('repeat') == 'on' ? 'checked' : '' ;
+  panel.hideMenu = ajustes.getProperty('hideMenu')  == 'on' ? 'checked' : '';
+  panel.hideBands = ajustes.getProperty('hideBands')  == 'on' ? 'checked' : '';
+  panel.hideBorders = ajustes.getProperty('hideBorders')  == 'on' ? 'checked' : '';
   panel.numGraficos = contarGraficosHdc();
   
   // Construir y desplegar panel de configuración
@@ -131,10 +131,10 @@ function ajustesPorDefecto() {
   // Invocado desde panelLateral_js
   // Restablecer ajustes por defecto (,false para preservar otras propiedades)
   
-  PropertiesService.getDocumentProperties().setProperties(AJUSTES_P, false);
+  PropertiesService.getDocumentProperties().setProperties(SETTINGS, false);
   
   // Devolver a panelLateral_js para que actualice formulario
-  return AJUSTES_P;
+  return SETTINGS;
   
 }
 
@@ -145,15 +145,15 @@ function actualizarAjustes(form) {
   // su propiedad (name) en el objeto pasado a servidor no se devuelve (cuidado).
   
   PropertiesService.getDocumentProperties().setProperties({
-    'sAvanzar' : form.sAvanzar,
-    'sRecargar' : form.sRecargar,
-    'msFundido' : form.msFundido,
-    'colorFondo' : form.colorFondo,
-    'iniciar' : form.iniciar, // 'on' o NULL
-    'repetir' : form.repetir, // 'on' o NULL
-    'eliminarMenu' : form.eliminarMenu, // 'on' o NULL
-    'eliminarBandas' : form.eliminarBandas, // 'on' o NULL
-    'eliminarBordes' : form.eliminarBordes // 'on' o NULL
+    'sAdvance' : form.sAdvance,
+    'sReload' : form.sReload,
+    'msFade' : form.msFade,
+    'backgroundColor' : form.backgroundColor,
+    'start' : form.start, // 'on' o NULL
+    'repeat' : form.repeat, // 'on' o NULL
+    'hideMenu' : form.hideMenu, // 'on' o NULL
+    'hideBands' : form.hideBands, // 'on' o NULL
+    'hideBorders' : form.hideBorders // 'on' o NULL
   }, false);
   
 }
@@ -209,12 +209,12 @@ function acortarUrl() {
   
 }
     
-function publicar() {
+function publish() {
      
   var slideId = SlidesApp.getActivePresentation().getId();
   var ultimaRevId = obtenerRevisiones();
   
-  // Publicar última revisión de la presentación
+  // publish última revisión de la presentación
  
   try {
       
@@ -223,11 +223,11 @@ function publicar() {
                            publishAuto: true}, 
                           slideId, ultimaRevId);
             
-    PropertiesService.getDocumentProperties().setProperty('publicar', 'true');
+    PropertiesService.getDocumentProperties().setProperty('publish', 'true');
     
     // Si no se ha configurado previamente, establecer valores por defecto
     
-    if (PropertiesService.getDocumentProperties().getProperty('inicializado') != 'true') {
+    if (PropertiesService.getDocumentProperties().getProperty('initialized') != 'true') {
       ajustesPorDefecto();
     }    
     
@@ -259,7 +259,7 @@ function publicar() {
 
 }  
 
-function despublicar() {
+function unpublish() {
 
   var slideId = SlidesApp.getActivePresentation().getId();
   var ultimaRevId = obtenerRevisiones();
@@ -273,7 +273,7 @@ function despublicar() {
                          publishAuto: false}, 
                          slideId, ultimaRevId);
   
-    PropertiesService.getDocumentProperties().setProperty('publicar', 'false');
+    PropertiesService.getDocumentProperties().setProperty('publish', 'false');
     SlidesApp.getUi().alert('🔄 AutoSlides', '🔻 The presentation is no longer publicly available.', SlidesApp.getUi().ButtonSet.OK);
   
   } catch(e) {
@@ -294,17 +294,17 @@ function doGet(e) {
   
   var ajustes = PropertiesService.getDocumentProperties().getProperties();
   var aspecto = 100 * SlidesApp.getActivePresentation().getPageHeight() / SlidesApp.getActivePresentation().getPageWidth();
-  var offsetPx = ajustes.eliminarBordes == 'on' ? INSET_BORDES : 0;
+  var offsetPx = ajustes.hideBorders == 'on' ? BORDER_INSET  : 0;
   
   incrustaWeb.url =  'https://docs.google.com/presentation/d/' + SlidesApp.getActivePresentation().getId() + '/embed';
-  incrustaWeb.iniciar = ajustes.iniciar == 'on' ? 'true' : 'false';
-  incrustaWeb.repetir = ajustes.repetir == 'on' ? 'true' : 'false';
-  incrustaWeb.msAvanzar = (+ajustes.sAvanzar * 1000).toString();
-  incrustaWeb.msFundido = ajustes.msFundido;
-  incrustaWeb.msRecargar = (+ajustes.sRecargar * 1000).toString();
-  incrustaWeb.colorFondo = ajustes.colorFondo;
-  incrustaWeb.insetInferior = ajustes.eliminarMenu == 'on' ? Math.ceil(INSET_INFERIOR  + offsetPx).toString() : '0';
-  incrustaWeb.insetLateral = ajustes.eliminarBandas == 'on' ? Math.ceil(100 * NUMERO_MAGICO / aspecto + offsetPx).toString() : '0';
+  incrustaWeb.start = ajustes.start == 'on' ? 'true' : 'false';
+  incrustaWeb.repeat = ajustes.repeat == 'on' ? 'true' : 'false';
+  incrustaWeb.msAdvance = (+ajustes.sAdvance * 1000).toString();
+  incrustaWeb.msFade = ajustes.msFade;
+  incrustaWeb.msReload = (+ajustes.sReload * 1000).toString();
+  incrustaWeb.backgroundColor = ajustes.backgroundColor;
+  incrustaWeb.insetInferior = ajustes.hideMenu == 'on' ? Math.ceil(BOTTOM_INSET  + offsetPx).toString() : '0';
+  incrustaWeb.insetLateral = ajustes.hideBands == 'on' ? Math.ceil(100 * MAGIC_NUMBER / aspecto + offsetPx).toString() : '0';
   incrustaWeb.insetSuperior = offsetPx.toString();
 
   // Para "truco" CSS que hace el iframe responsive
