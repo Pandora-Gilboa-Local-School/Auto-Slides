@@ -37,7 +37,7 @@ function onOpen() {
   SlidesApp.getUi().createMenu('🔄 AutoSlides')
     .addItem('⚙️ Configure', 'configure')
     .addItem('🌐  Get Public URL', 'publish')
-    .addItem('🔻 Stop Publishing', 'despublicar')
+    .addItem('🔻 Stop Publishing', 'unpublish')
     .addSeparator()
     .addItem('💡 About AutoSlides', 'acercaDe')
     .addToUi();
@@ -259,7 +259,7 @@ function publish() {
 
 }  
 
-function despublicar() {
+function unpublish() {
 
   var slideId = SlidesApp.getActivePresentation().getId();
   var ultimaRevId = obtenerRevisiones();
