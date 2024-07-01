@@ -11,63 +11,57 @@
       <label for="url">🌐️ Published presentation URL:</label><br>
       <textarea style="min-height: 40px; width: 680px; resize: none" id="url" rows="2" cols="95" disabled><?!= url ?></textarea>
     </div>
-    <input type="checkbox" id="acortar" name="acortar" value="acortar" onclick = "acortar()"><label for="acortar">Acortar URL (con TinyURL)</label>
+    <input type="checkbox" id="shorten" name="shorten" value="shorten" onclick="shortenUrl()"><label for="shorten">Shorten URL (using TinyURL)</label>
     <div>
-      <button id="abrir" onclick = "probar()">Open in new tab</button>
-      <button id="copiar" onclick = "copiar()">Copy</button>
+      <button id="open" onclick="openInNewTab()">Open in new tab</button>
+      <button id="copy" onclick="copyUrl()">Copy</button>
       <span id="msg"></span>
     </div>
     <br>
-    <button id="close" onclick = "close()">OK</button>   
+    <button id="close" onclick="closeDialog()">OK</button>   
   </body>
   
   <script> 
   
-    function close() {
+    function closeDialog() {
       google.script.host.close();
     }
     
-    function probar() {
-      var txtUrl = "https://script.google.com/a/macros/pgrockets.org/s/AKfycbzCF6-BTXcIOYgGkIwqRmuSQ-6BgEbNqLgDp3_FXlxQvS8hlieuN7sTe02OnZZjLWKT8A/exec"; //document.querySelector('#url').value;
-      window.open(txtUrl);
+    function openInNewTab() {
+      var url = "This is broken at the moment... sorry!"; //document.querySelector('#url').value;
+      window.open(url);
     }
     
-    function copiar() {
-    
+    function copyUrl() {
       var txtUrl = document.querySelector('#url');
       txtUrl.disabled = false;
       txtUrl.select();
       document.execCommand('copy');
       txtUrl.disabled = true;
       document.querySelector('#msg').innerHTML = '✔️ URL copied!';
-      
     }
     
-    function acortar() {
-    
-      document.querySelector('#acortar').disabled = true; // desactivar mientras se procesa
-      if (document.querySelector('#acortar').checked == true) {
+    function shortenUrl() {
+      document.querySelector('#shorten').disabled = true; // Disable while processing
+      if (document.querySelector('#shorten').checked == true) {
         google.script.run
-          .withSuccessHandler(function(urlCorto) {
-            document.querySelector('#url').value = urlCorto;
+          .withSuccessHandler(function(shortenedUrl) {
+            document.querySelector('#url').value = shortenedUrl;
             document.querySelector('#msg').innerHTML = '';
-            document.querySelector('#acortar').disabled = false; // reactivar tras procesar
+            document.querySelector('#shorten').disabled = false; // Re-enable after processing
           })
           .withFailureHandler(function() {
-            document.querySelector('#msg').innerHTML = '❌Shortening error with TinyURL';
-            document.querySelector('#acortar').checked = false;
-            document.querySelector('#acortar').disabled = false; // reactivar tras procesar
+            document.querySelector('#msg').innerHTML = '❌ Error shortening URL with TinyURL';
+            document.querySelector('#shorten').checked = false;
+            document.querySelector('#shorten').disabled = false; // Re-enable after processing
           })
           .shortenUrl();  
         }
       else {
         document.querySelector('#url').value = '<?!= url ?>';
         document.querySelector('#msg').innerHTML = '';
-        document.querySelector('#acortar').disabled = false; // reactivar tras procesar
+        document.querySelector('#shorten').disabled = false; // Re-enable after processing
       }
-      
-      // No se debe reactivar checkbox aquí dado que google.script.run es asíncrono,
-      // puede que acortar() retorne, reactivando la casilla, antes de que finalice
     }
  
   </script>

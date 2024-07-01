@@ -15,12 +15,12 @@
   
       // Asignar manejador botón guardar cambios
       
-      $('#botonGuardar').prop('disabled', true);
-      $('#botonGuardar').click(on_botonGuardar);
-      $('#botonReset').click(on_botonReset);
+      $('#saveButton').prop('disabled', true);
+      $('#saveButton').click(on_botonGuardar);
+      $('#resetButton').click(on_botonReset);
       
       // Reactivar botón en cuanto se modifica algún ajuste
-      $('input').change(() =>  {$('#botonGuardar').prop('disabled', false);})  
+      $('input').change(() =>  {$('#saveButton').prop('disabled', false);})  
       
   });
   
@@ -28,7 +28,7 @@
     
     // Desactivar botón
     
-    $('#botonGuardar').prop('disabled', true);
+    $('#saveButton').prop('disabled', true);
     
     // Devolver valores a servidor, se pasa objeto DOM form como parámetro directamente
     
@@ -39,7 +39,7 @@
       })
       .withFailureHandler(function() {
         M.toast({html: '❌ Error performing operation'});
-        $('#botonGuardar').prop('disabled', false);
+        $('#saveButton').prop('disabled', false);
       })
       .updateSettings($('#formconfigure').get(0));
   }
@@ -50,7 +50,7 @@
   
   // Desactivar botón
     
-  $('#botonReset').prop('disabled', true);
+  $('#resetButton').prop('disabled', true);
   
     google.script.run
       .withSuccessHandler(function(ajustes) {
@@ -64,13 +64,13 @@
         $('#hideMenu').prop('checked', ajustes.hideMenu == 'on' ? true : false);
         $('#hideBands').prop('checked', ajustes.hideBands == 'on' ? true : false);
         $('#hideBorders').prop('checked', ajustes.hideBorders == 'on' ? true : false);
-        $('#botonGuardar').prop('disabled', true);
-        $('#botonReset').prop('disabled', false);
+        $('#saveButton').prop('disabled', true);
+        $('#resetButton').prop('disabled', false);
 
       })
       .withFailureHandler(function() {
         M.toast({html: '❌ Error performing operation'});
-        $('#botonReset').prop('disabled', false);
+        $('#resetButton').prop('disabled', false);
       })
       .defaultSettings();  
   
