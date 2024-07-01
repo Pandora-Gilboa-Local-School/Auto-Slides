@@ -164,30 +164,30 @@ function updateSettings(form) {
   
 }
 
-function obtenerRevisiones() {
+function getRevisions() {
   
-  // Devuelve el ID de la última revisión de la presentación actual
+  // Returns the ID of the latest revision of the current presentation
   
   var slideId = SlidesApp.getActivePresentation().getId();
-  var respuesta;
+  var response;
   var token;
-  var revisiones = [];
-  var hayMas = true;
+  var revisions = [];
+  var more = true;
  
-  // Iterar hasta alcanzar la última revisión de la presentación
+  // Iterate until reaching the last revision of the presentation
  
   try {
       
-    while (hayMas == true) {
-      respuesta = Drive.Revisions.list(slideId, {maxResults: 1000, pageToken: token});
-      revisiones = revisiones.concat(respuesta.items);
-      token = respuesta.nextPageToken;
-      hayMas = (token == undefined) ? false : true;
+    while (more == true) {
+      response = Drive.Revisions.list(slideId, {maxResults: 1000, pageToken: token});
+      revisions = revisions.concat(response.items);
+      token = response.nextPageToken;
+      more = (token == undefined) ? false : true;
     }
     
-    // Devolver última revisión
+    // Return the last revision
     
-    return revisiones[revisiones.length-1].id;
+    return revisions[revisions.length - 1].id;
     
   } catch(e) {
   
@@ -218,7 +218,7 @@ function acortarUrl() {
 function publish() {
      
   var slideId = SlidesApp.getActivePresentation().getId();
-  var ultimaRevId = obtenerRevisiones();
+  var ultimaRevId = getRevisions();
   
   // Publicar última revisión de la presentación
  
@@ -268,7 +268,7 @@ function publish() {
 function unpublish() {
 
   var slideId = SlidesApp.getActivePresentation().getId();
-  var ultimaRevId = obtenerRevisiones();
+  var ultimaRevId = getRevisions();
  
   // Desactivar publicación de la última revisión de la presentación
  
