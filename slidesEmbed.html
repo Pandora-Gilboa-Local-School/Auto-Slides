@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <base target="_top">
-  </head>
+<head>
+  <base target="_top">
+</head>
   
-  <body style="background-color:<?= backgroundColor ?>; margin: 0; padding: 0">
-  
-  <!-- Mostrar presentación incrustada si publicación activada y ajustes initializeds -->
-  
-  <? if (PropertiesService.getDocumentProperties().getProperty('publish') == 'true' && 
-         PropertiesService.getDocumentProperties().getProperty('initialized') == 'true' ) { ?>
-  
-    <div id="marco1" style="display: block; position: relative; padding-bottom: <?= aspectRatio ?>%; height: 0; overflow: hidden; border: none;">
-      <iframe id="marco2" style="transition: opacity 1s; position:absolute; width: 100%; height: 100%; clip-path: inset(<?= topInset ?>px <?= sideInset ?>px <?= bottomInset ?>px <?= sideInset ?>px)";
-        src="<?= url ?>?start=<?= start ?>&loop=<?= repeat ?>&delayms=<?= msAdvance ?>"
-        frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
-      </iframe>
-    </div>
-  
-    <!-- Si intervalo de recarga = 0 no recargaremos nunca -->
-  
-    <? if (PropertiesService.getDocumentProperties().getProperty('sReload') != '0') { ?>
+<body style="background-color:<?= backgroundColor ?>; margin: 0; padding: 0">
 
-      <script>
-  
-        setInterval(function(){
-      
-          document.getElementById("marco2").style.opacity = 0;
-      
-          sleep(1000).then(() => {document.getElementById('marco2').src="<?= url ?>?start=<?= start ?>&loop=<?= repeat ?>&delayms=<?= msAdvance ?>";});
-          sleep(<?= msFade ?>).then(() => {document.getElementById("marco2").style.opacity = 1;});
-           
-        }, <?= msReload ?>);
-    
-        function sleep(ms) {
-          return new Promise(resolve => setTimeout(resolve, ms));
-        }
-    
-      </script>
-  
-    <? } ?>
-  
-  <? } else {?>
-    
-<h1 style="color: red;">Lunch menu is currently disabled! Thank you.</h1>
-     
+<!-- Show embedded presentation if publishing is enabled and settings are initialized -->
+<? if (PropertiesService.getDocumentProperties().getProperty('publish') == 'true' && 
+       PropertiesService.getDocumentProperties().getProperty('initialized') == 'true' ) { ?>
+
+  <div id="marco1" style="display: block; position: relative; padding-bottom: <?= aspectRatio ?>%; height: 0; overflow: hidden; border: none;">
+    <iframe id="marco2" style="transition: opacity 1s; position:absolute; width: 100%; height: 100%; clip-path: inset(<?= topInset ?>px <?= sideInset ?>px <?= bottomInset ?>px <?= sideInset ?>px)"
+      src="<?= url ?>?start=<?= start ?>&loop=<?= repeat ?>&delayms=<?= msAdvance ?>"
+      frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+    </iframe>
+  </div>
+
+  <!-- If reload interval = 0, never reload -->
+  <? if (PropertiesService.getDocumentProperties().getProperty('sReload') != '0') { ?>
+
+    <script>
+
+      setInterval(function(){
+
+        document.getElementById("marco2").style.opacity = 0;
+
+        sleep(1000).then(() => {document.getElementById('marco2').src="<?= url ?>?start=<?= start ?>&loop=<?= repeat ?>&delayms=<?= msAdvance ?>";});
+        sleep(<?= msFade ?>).then(() => {document.getElementById("marco2").style.opacity = 1;});
+
+      }, <?= msReload ?>);
+
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+    </script>
+
   <? } ?>
 
-  </body>
+<? } else {?>
+    
+  <h1 style="color: red;">Lunch menu is currently disabled! Thank you.</h1>
+     
+<? } ?>
+
+</body>
 
 </html>

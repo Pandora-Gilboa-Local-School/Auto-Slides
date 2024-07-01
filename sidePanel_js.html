@@ -6,31 +6,31 @@
 
 <script>
   
-  // Evento de documento listo
+  // Document ready event
   $(function() {
   
-      // Inicialiar todos los componententes Materialize
+      // Initialize all Materialize components
       
       M.AutoInit();
   
-      // Asignar manejador botón guardar cambios
+      // Assign handler for save button
       
       $('#saveButton').prop('disabled', true);
-      $('#saveButton').click(on_botonGuardar);
-      $('#resetButton').click(on_botonReset);
+      $('#saveButton').click(on_saveButton);
+      $('#resetButton').click(on_resetButton);
       
-      // Reactivar botón en cuanto se modifica algún ajuste
+      // Enable save button as soon as any setting is modified
       $('input').change(() =>  {$('#saveButton').prop('disabled', false);})  
       
   });
   
-  function on_botonGuardar() {
+  function on_saveButton() {
     
-    // Desactivar botón
+    // Disable button
     
     $('#saveButton').prop('disabled', true);
     
-    // Devolver valores a servidor, se pasa objeto DOM form como parámetro directamente
+    // Send values to server, passing DOM form object as parameter directly
     
     google.script.run
       .withSuccessHandler(function() {
@@ -44,26 +44,26 @@
       .updateSettings($('#formconfigure').get(0));
   }
   
-  function on_botonReset() {
+  function on_resetButton() {
 
-  // Reajustar valores de configuración por defecto
-  
-  // Desactivar botón
+    // Reset configuration values to defaults
     
-  $('#resetButton').prop('disabled', true);
-  
+    // Disable button
+    
+    $('#resetButton').prop('disabled', true);
+    
     google.script.run
-      .withSuccessHandler(function(ajustes) {
+      .withSuccessHandler(function(settings) {
         M.toast({html: '✔️ Original settings restored'});
-        $('#sAdvance').prop('value', ajustes.sAdvance);
-        $('#sReload').prop('value', ajustes.sReload);
-        $('#msFade').prop('value', ajustes.msFade);
-        $('#backgroundColor').prop('value', ajustes.backgroundColor);
-        $('#start').prop('checked', ajustes.start == 'on' ? true : false);
-        $('#repeat').prop('checked', ajustes.repeat == 'on' ? true : false);
-        $('#hideMenu').prop('checked', ajustes.hideMenu == 'on' ? true : false);
-        $('#hideBands').prop('checked', ajustes.hideBands == 'on' ? true : false);
-        $('#hideBorders').prop('checked', ajustes.hideBorders == 'on' ? true : false);
+        $('#sAdvance').prop('value', settings.sAdvance);
+        $('#sReload').prop('value', settings.sReload);
+        $('#msFade').prop('value', settings.msFade);
+        $('#backgroundColor').prop('value', settings.backgroundColor);
+        $('#start').prop('checked', settings.start == 'on' ? true : false);
+        $('#repeat').prop('checked', settings.repeat == 'on' ? true : false);
+        $('#hideMenu').prop('checked', settings.hideMenu == 'on' ? true : false);
+        $('#hideBands').prop('checked', settings.hideBands == 'on' ? true : false);
+        $('#hideBorders').prop('checked', settings.hideBorders == 'on' ? true : false);
         $('#saveButton').prop('disabled', true);
         $('#resetButton').prop('disabled', false);
 
