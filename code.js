@@ -196,17 +196,17 @@ function getRevisions() {
   }
 }
 
-function shortenUrl() {
+function shortenUrl() { // Stupid Function.... Just gonna make everything null/blank because I CAN
   
   // Invoked from publishedInfo
   
-  var shortUrl = PropertiesService.getDocumentProperties().getProperty('shortUrl');
+  var shortUrl = null
   
   if (shortUrl == null) {
     
     // Not yet shortened, let's do it now and store short URL in properties
     
-    shortUrl = UrlFetchApp.fetch(TINYURL + ScriptApp.getService().getUrl()).getContentText();
+    shortUrl = "" //UrlFetchApp.fetch(TINYURL + ScriptApp.getService().getUrl()).getContentText();
     PropertiesService.getDocumentProperties().setProperty('shortUrl', shortUrl);
     
   }
@@ -240,8 +240,30 @@ function publish() {
     if (ScriptApp.getService().isEnabled() == true) {
       
       // The web app has been previously published, get public URL (V8 returns private /dev as of 18/02/20)
+      function getUrl(){
+        google.script.run
+        .withSuccessHandler(function(url){
+           document.getElementById('marco2').innerHTML='<p>' + url + '</p>';
+         })
+        .getScriptUrl()
+      }
+
+      try {
+        var webAppUrl = getUrl(); // Assuming getUrl() is your function to fetch URL
+        // ScriptApp.getService().getUrl() can be used alternatively if needed
       
-      var webAppUrl = ScriptApp.getService().getUrl();
+      } catch (error) {
+        // Handle the error appropriately
+        console.error("Error fetching web app URL:", error);
+        SlidesApp.getUi().alert("Failed to fetch web app URL. Please check deployment settings.\n\n (Look... if you got this error... I can't help you, I've spent too long trying to debug this stupid function... If you wanna try.. good luck!)");
+        SlidesApp.getUi().alert("Your WebApp is now public though, but you need to go through app Scripts to find the URL (hit close to see more info)");
+
+        // You can also add a more descriptive message or log additional information
+        console.warn("If you see this error, please verify your deployment settings and script configuration.");
+        // Instructions for the user...
+        var panel = HtmlService.createHtmlOutputFromFile('findingWebAppUrlInstructions');
+        SlidesApp.getUi().showSidebar(panel.setTitle('🌐 Finding the Web App URL'));
+      }
       var panel = HtmlService.createTemplateFromFile('publishedInfo');
             
       panel.url = webAppUrl;

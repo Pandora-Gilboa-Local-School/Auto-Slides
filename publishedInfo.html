@@ -11,7 +11,8 @@
       <label for="url">🌐️ Published presentation URL:</label><br>
       <textarea style="min-height: 40px; width: 680px; resize: none" id="url" rows="2" cols="95" disabled><?!= url ?></textarea>
     </div>
-    <input type="checkbox" id="shorten" name="shorten" value="shorten" onclick="shortenUrl()"><label for="shorten">Shorten URL (using TinyURL)</label>
+    <!-- This below is just stupid.. why would I Do that?!!? -->
+    <!-- <input type="checkbox" id="shorten" name="shorten" value="shorten" onclick="shortenUrl()"><label for="shorten">Shorten URL (using TinyURL)</label> -->
     <div>
       <button id="open" onclick="openInNewTab()">Open in new tab</button>
       <button id="copy" onclick="copyUrl()">Copy</button>
@@ -28,7 +29,7 @@
     }
     
     function openInNewTab() {
-      var url = "This is broken at the moment... sorry!"; //document.querySelector('#url').value;
+      var url = document.querySelector('#url').value; // This is broken at the moment... sorry!
       window.open(url);
     }
     

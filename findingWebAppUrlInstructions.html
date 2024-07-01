@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error: AutoSlides Web Server URL Not Found</title>
+  <base target="_top">
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 400px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .message {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .button-container {
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    height: 100vh; /* Example: Center vertically within viewport */
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Error: AutoSlides Web Server URL Not Found</h2>
+    <div class="message">
+      <p>The AutoSlides web server URL <b>could not be found.</b></p>
+      <p>To find the URL:</p>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li>Go to Extensions > Script Editor > Deploy > Manage Deployments.</li>
+        <li>Look for the URL under the section "Web App" (not "Library").</li>
+      </ul>
+    </div>
+
+    <h6 style="font-size: 10px;">To the person reading this... I tried to fix the issue for hours... so far I think it's a bug, but maybe I'm just dumb. If you think you found a way to dynamicly find the URL please let me know!</h6>
+    <hr>
+    <br>
+    <button style="padding-bottom: 9%;" id="cerrar" onclick = "cerrar()">OK</button>   
+  </div>
+  
+  <script>
+    function closeWindow() {
+      google.script.host.close();
+    }
+  </script>
+</body>
+</html>
