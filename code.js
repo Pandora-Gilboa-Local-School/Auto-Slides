@@ -87,46 +87,6 @@ function countSheetCharts() {
   return numCharts;
 }
 
-// function configure() {
-
-//   // Inicializar y / o leer configuración
-  
-//   if (PropertiesService.getDocumentProperties().getProperty('initialized') != 'true') {
-    
-//     // Establecer ajustes por defecto
-    
-//     PropertiesService.getDocumentProperties().setProperties(SETTINGS, true);
-    
-//     // Inicialmente la publicación está desactivada
-    
-//     PropertiesService.getDocumentProperties().setProperty('publish', 'false');
-    
-//   }
-  
-//   // Plantilla del panel
-  
-//   var panel = HtmlService.createTemplateFromFile('sidePanel');
-  
-//   // Valores iniciales de controles
-  
-//   var ajustes = PropertiesService.getDocumentProperties();
-  
-//   panel.sAdvance =  ajustes.getProperty('sAdvance');
-//   panel.sReload = ajustes.getProperty('sReload');
-//   panel.msFade = ajustes.getProperty('msFade');
-//   panel.backgroundColor = ajustes.getProperty('backgroundColor');
-//   panel.start =  ajustes.getProperty('start') == 'on' ? 'checked' : '' ;
-//   panel.repeat =  ajustes.getProperty('repeat') == 'on' ? 'checked' : '' ;
-//   panel.hideMenu = ajustes.getProperty('hideMenu')  == 'on' ? 'checked' : '';
-//   panel.hideBands = ajustes.getProperty('hideBands')  == 'on' ? 'checked' : '';
-//   panel.hideBorders = ajustes.getProperty('hideBorders')  == 'on' ? 'checked' : '';
-//   panel.numGraficos = countSheetCharts();
-  
-//   // Construir y desplegar panel de configuración
-  
-//   SlidesApp.getUi().showSidebar(panel.evaluate().setTitle('🔄 AutoSlides: Embed Settings'));
-  
-// }
 
 
 
@@ -173,21 +133,20 @@ function configure() {
 
 
 
-function ajustesPorDefecto() {
+function defaultSettings() {
   
-  // Invocado desde panelLateral_js
-  // Restablecer ajustes por defecto (,false para preservar otras propiedades)
+  // Invoked from sidePanel_js
+  // Reset to default settings (false to preserve other properties)
   
   PropertiesService.getDocumentProperties().setProperties(SETTINGS, false);
   
-  // Devolver a panelLateral_js para que actualice formulario
+  // Return to sidePanel_js to update the form
   return SETTINGS;
-  
 }
 
 function actualizarAjustes(form) {
 
-  // Invocado desde panelLateral_js
+  // Invocado desde sidePanel_js
   // Al devolver form desde cliente, si una casilla de verificación no está marcada,
   // su propiedad (name) en el objeto pasado a servidor no se devuelve (cuidado).
   
@@ -275,7 +234,7 @@ function publish() {
     // Si no se ha configurado previamente, establecer valores por defecto
     
     if (PropertiesService.getDocumentProperties().getProperty('initialized') != 'true') {
-      ajustesPorDefecto();
+      defaultSettings();
     }    
     
     if (ScriptApp.getService().isEnabled() == true) {
