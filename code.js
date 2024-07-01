@@ -144,22 +144,22 @@ function defaultSettings() {
   return SETTINGS;
 }
 
-function actualizarAjustes(form) {
+function updateSettings(form) {
 
-  // Invocado desde sidePanel_js
-  // Al devolver form desde cliente, si una casilla de verificación no está marcada,
-  // su propiedad (name) en el objeto pasado a servidor no se devuelve (cuidado).
+  // Invoked from sidePanel_js
+  // When returning the form from the client, if a checkbox is not checked,
+  // its property (name) in the object passed to the server is not returned (be careful).
   
   PropertiesService.getDocumentProperties().setProperties({
     'sAdvance' : form.sAdvance,
     'sReload' : form.sReload,
     'msFade' : form.msFade,
     'backgroundColor' : form.backgroundColor,
-    'start' : form.start, // 'on' o NULL
-    'repeat' : form.repeat, // 'on' o NULL
-    'hideMenu' : form.hideMenu, // 'on' o NULL
-    'hideBands' : form.hideBands, // 'on' o NULL
-    'hideBorders' : form.hideBorders // 'on' o NULL
+    'start' : form.start, // 'on' or NULL
+    'repeat' : form.repeat, // 'on' or NULL
+    'hideMenu' : form.hideMenu, // 'on' or NULL
+    'hideBands' : form.hideBands, // 'on' or NULL
+    'hideBorders' : form.hideBorders // 'on' or NULL
   }, false);
   
 }
