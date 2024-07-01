@@ -54,35 +54,37 @@ function about() {
 }
 
 
-// Refrescar gráficos vinculados de HdC
+// Refresh linked charts from sheets
 
-function refrescarGraficosHdc() {
+function refreshHdCCharts() {
     
-  // Versión V8: No se utiliza por bug V8 y ScriptApp.GetService().getUrl()
+  // V8 version: Not used due to V8 bug and ScriptApp.GetService().getUrl()
   // https://groups.google.com/d/topic/google-apps-script-community/0snPFcUqt40/discussion
   
-  // SlidesApp.getActivePresentation().getSlides().map(diapo => {diapo.getSheetsCharts().map(grafico => {grafico.refresh();});});
+  // SlidesApp.getActivePresentation().getSlides().map(slide => {slide.getSheetsCharts().map(chart => {chart.refresh();});});
   
-  SlidesApp.getActivePresentation().getSlides().map(function(diapo) {
-    diapo.getSheetsCharts().map(function(grafico) {
-      grafico.refresh();});});
-  
+  SlidesApp.getActivePresentation().getSlides().map(function(slide) {
+    slide.getSheetsCharts().map(function(chart) {
+      chart.refresh();
+    });
+  });
 }
 
-function contarGraficosHdc() {
+function countSheetCharts() {
   
-  var numGraficos = 0;
+  var numCharts = 0;
   
-  // Idem anterior: Versión V8. No se utiliza para seguir ejecutando con Rhino por bug V8 y ScriptApp.GetService().getUrl()
+  // Same as above: V8 Version. Not used to continue running with Rhino due to V8 bug and ScriptApp.GetService().getUrl()
 
-  // SlidesApp.getActivePresentation().getSlides().map(diapo => {diapo.getSheetsCharts().map(grafico => {numGraficos++});});
+  // SlidesApp.getActivePresentation().getSlides().map(slide => {slide.getSheetsCharts().map(chart => {numCharts++});});
   
-  SlidesApp.getActivePresentation().getSlides().map(function(diapo)
-    {diapo.getSheetsCharts().map(function(grafico) 
-      {numGraficos++});});
+  SlidesApp.getActivePresentation().getSlides().map(function(slide) {
+    slide.getSheetsCharts().map(function(chart) {
+      numCharts++;
+    });
+  });
   
-  return numGraficos;
-
+  return numCharts;
 }
 
 function configure() {
@@ -118,7 +120,7 @@ function configure() {
   panel.hideMenu = ajustes.getProperty('hideMenu')  == 'on' ? 'checked' : '';
   panel.hideBands = ajustes.getProperty('hideBands')  == 'on' ? 'checked' : '';
   panel.hideBorders = ajustes.getProperty('hideBorders')  == 'on' ? 'checked' : '';
-  panel.numGraficos = contarGraficosHdc();
+  panel.numGraficos = countSheetCharts();
   
   // Construir y desplegar panel de configuración
   
