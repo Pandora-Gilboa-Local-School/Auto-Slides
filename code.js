@@ -268,16 +268,16 @@ function publish() {
 function unpublish() {
 
   var slideId = SlidesApp.getActivePresentation().getId();
-  var ultimaRevId = getRevisions();
+  var lastRevId = getRevisions();
  
-  // Desactivar publicación de la última revisión de la presentación
+  // Disable publishing of the latest revision of the presentation
  
   try {
   
     Drive.Revisions.patch({published: false,
-                         publishedOutsideDomain: false,
-                         publishAuto: false}, 
-                         slideId, ultimaRevId);
+                           publishedOutsideDomain: false,
+                           publishAuto: false}, 
+                          slideId, lastRevId);
   
     PropertiesService.getDocumentProperties().setProperty('publish', 'false');
     SlidesApp.getUi().alert('🔄 AutoSlides', '🔻 The presentation is no longer publicly available.', SlidesApp.getUi().ButtonSet.OK);
