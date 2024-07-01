@@ -292,31 +292,31 @@ function unpublish() {
 
 function doGet(e) {
 
-  // Generar página web con presentación incrustada
+  // Generate web page with embedded presentation
 
-  var incrustaWeb = HtmlService.createTemplateFromFile('slidesEmbed');
+  var embedWebPage = HtmlService.createTemplateFromFile('slidesEmbed');
   
-  // Rellenar elementos de plantilla
+  // Fill template elements
   
-  var ajustes = PropertiesService.getDocumentProperties().getProperties();
-  var aspecto = 100 * SlidesApp.getActivePresentation().getPageHeight() / SlidesApp.getActivePresentation().getPageWidth();
-  var offsetPx = ajustes.hideBorders == 'on' ? BORDER_INSET  : 0;
+  var settings = PropertiesService.getDocumentProperties().getProperties();
+  var aspectRatio = 100 * SlidesApp.getActivePresentation().getPageHeight() / SlidesApp.getActivePresentation().getPageWidth();
+  var offsetPx = settings.hideBorders == 'on' ? BORDER_INSET  : 0;
   
-  incrustaWeb.url =  'https://docs.google.com/presentation/d/' + SlidesApp.getActivePresentation().getId() + '/embed';
-  incrustaWeb.start = ajustes.start == 'on' ? 'true' : 'false';
-  incrustaWeb.repeat = ajustes.repeat == 'on' ? 'true' : 'false';
-  incrustaWeb.msAdvance = (+ajustes.sAdvance * 1000).toString();
-  incrustaWeb.msFade = ajustes.msFade;
-  incrustaWeb.msReload = (+ajustes.sReload * 1000).toString();
-  incrustaWeb.backgroundColor = ajustes.backgroundColor;
-  incrustaWeb.insetInferior = ajustes.hideMenu == 'on' ? Math.ceil(BOTTOM_INSET  + offsetPx).toString() : '0';
-  incrustaWeb.insetLateral = ajustes.hideBands == 'on' ? Math.ceil(100 * MAGIC_NUMBER / aspecto + offsetPx).toString() : '0';
-  incrustaWeb.insetSuperior = offsetPx.toString();
+  embedWebPage.url =  'https://docs.google.com/presentation/d/' + SlidesApp.getActivePresentation().getId() + '/embed';
+  embedWebPage.start = settings.start == 'on' ? 'true' : 'false';
+  embedWebPage.repeat = settings.repeat == 'on' ? 'true' : 'false';
+  embedWebPage.msAdvance = (+settings.sAdvance * 1000).toString();
+  embedWebPage.msFade = settings.msFade;
+  embedWebPage.msReload = (+settings.sReload * 1000).toString();
+  embedWebPage.backgroundColor = settings.backgroundColor;
+  embedWebPage.bottomInset = settings.hideMenu == 'on' ? Math.ceil(BOTTOM_INSET  + offsetPx).toString() : '0';
+  embedWebPage.sideInset = settings.hideBands == 'on' ? Math.ceil(100 * MAGIC_NUMBER / aspectRatio + offsetPx).toString() : '0';
+  embedWebPage.topInset = offsetPx.toString();
 
-  // Para "truco" CSS que hace el iframe responsive
+  // For CSS trick making the iframe responsive
 
-  incrustaWeb.aspecto = aspecto.toString();
+  embedWebPage.aspectRatio = aspectRatio.toString();
   
-  return incrustaWeb.evaluate().setTitle(SlidesApp.getActivePresentation().getName()).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  return embedWebPage.evaluate().setTitle(SlidesApp.getActivePresentation().getName()).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 
 }
