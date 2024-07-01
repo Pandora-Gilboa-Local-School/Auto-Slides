@@ -196,42 +196,42 @@ function getRevisions() {
   }
 }
 
-function acortarUrl() {
+function shortenUrl() {
   
-  // Invocado desde infoPublicada
+  // Invoked from publishedInfo
   
-  var urlCorto = PropertiesService.getDocumentProperties().getProperty('urlCorto');
+  var shortUrl = PropertiesService.getDocumentProperties().getProperty('shortUrl');
   
-  if (urlCorto == null) {
+  if (shortUrl == null) {
     
-    // No se ha acortado aún, lo haremos ahora y guardaremos URL corto en propiedades
-  
-    urlCorto = UrlFetchApp.fetch(TINYURL + ScriptApp.getService().getUrl()).getContentText();
-    PropertiesService.getDocumentProperties().setProperty('urlCorto', urlCorto);
+    // Not yet shortened, let's do it now and store short URL in properties
+    
+    shortUrl = UrlFetchApp.fetch(TINYURL + ScriptApp.getService().getUrl()).getContentText();
+    PropertiesService.getDocumentProperties().setProperty('shortUrl', shortUrl);
     
   }
   
-  return urlCorto;
+  return shortUrl;
   
 }
     
 function publish() {
      
   var slideId = SlidesApp.getActivePresentation().getId();
-  var ultimaRevId = getRevisions();
+  var lastRevId = getRevisions();
   
-  // Publicar última revisión de la presentación
+  // Publish the latest revision of the presentation
  
   try {
       
     Drive.Revisions.patch({published: true,
                            publishedOutsideDomain: true,
                            publishAuto: true}, 
-                          slideId, ultimaRevId);
+                          slideId, lastRevId);
             
     PropertiesService.getDocumentProperties().setProperty('publish', 'true');
     
-    // Si no se ha configurado previamente, establecer valores por defecto
+    // If not previously configured, set default values
     
     if (PropertiesService.getDocumentProperties().getProperty('initialized') != 'true') {
       defaultSettings();
@@ -239,19 +239,19 @@ function publish() {
     
     if (ScriptApp.getService().isEnabled() == true) {
       
-      // La webapp ya ha sido previamente publicada, obtener URL público (¡con V8 devuelve el privado /dev! a 18/02/20)
+      // The web app has been previously published, get public URL (V8 returns private /dev as of 18/02/20)
       
-      var urlWebApp = ScriptApp.getService().getUrl();
-      var panel = HtmlService.createTemplateFromFile('infoPublicada');
+      var webAppUrl = ScriptApp.getService().getUrl();
+      var panel = HtmlService.createTemplateFromFile('publishedInfo');
             
-      panel.url = urlWebApp;
+      panel.url = webAppUrl;
       SlidesApp.getUi().showModalDialog(panel.evaluate().setWidth(700).setHeight(175), '🔄 AutoSlides');
       
     } else {
       
-      // El usuario debe realizar la publicación inicial de la webapp
+      // User needs to perform initial web app publishing
 
-      var panel = HtmlService.createHtmlOutputFromFile('instruccionesWebApp');
+      var panel = HtmlService.createHtmlOutputFromFile('webAppInstructions');
       SlidesApp.getUi().showSidebar(panel.setTitle('🌐 Publishing instructions'));
 
     }
@@ -263,7 +263,7 @@ function publish() {
     
   }
 
-}  
+}
 
 function unpublish() {
 
