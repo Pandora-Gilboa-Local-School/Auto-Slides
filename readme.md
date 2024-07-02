@@ -27,4 +27,6 @@ Installation is simple and quick, requiring just a few clicks!
 - **Publishing Link**: When hitting "Publish," the link provided may not be correct. You'll need to manually find the link on the deployment page for now.
 - **Stop Publishing**: The web apps will only update after they are manually refreshed.
 
+
+##### Credit to @pfelipm for the base code.
 ---
