@@ -23,6 +23,11 @@ Installation is simple and quick, requiring just a few clicks!
    - Click on **AutoSlides** and select **Configure**. Follow the on-screen instructions to set up your webapp for the first time.
    - If you have linked charts, additional instructions will be provided on the configure page.
 
+3. **Rename code.js -> code.gs**:
+   - When using visual studio code it is helpful to name the script code.js for the formatting, however, once moved into google app script, name it code.gs.
+   - If you are using the link [here](https://docs.google.com/presentation/d/ you will not have to do this.
+
+
 ## Known Issues
 - **Publishing Link**: When hitting "Publish," the link provided may not be correct. You'll need to manually find the link on the deployment page for now.
 - **Stop Publishing**: The web apps will only update after they are manually refreshed.
